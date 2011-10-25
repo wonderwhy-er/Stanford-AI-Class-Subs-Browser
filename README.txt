@@ -1,5 +1,10 @@
 This is a small project for Stanford AI-Class www.ai-class.com
 
+** License **
+Publishing it under MIT license
+Mostly use it in any way you like.
+However metioning my name is welcome :D
+
 It was made to allow watching of lectures along with reading the caption.
 Also allows to search trough all captions and jump to exactly that lecture and place where that line was used.
 
