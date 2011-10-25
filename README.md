@@ -52,6 +52,7 @@ Sadly getting captions from google fails. It returns error 400: malformed or ill
 Sadly failed to figure out whats' wrong and am not intending to find it out anymore.
 
 You can see video list scrapping script in action here(works fine): http://www.wonderwhy-er.com/ai-class/getSortedVideoList.php
+
 And here is captions scrapping script(does not work, you can click on the link and see that browser gets it just fine): http://www.wonderwhy-er.com/ai-class/getSubs.php
 
 Will be very thankful to anyone who will figure out a way of how to retrieve YouTube captions trough PHP so that I could finish this script and use it instead of AIR app.
