@@ -25,6 +25,21 @@ H2
 	border-style: solid; 
 }
 
+H3
+{
+	padding-top:8px;
+	margin-top:10px;
+	margin-bottom:10px;
+	border:0px;
+	border-bottom:1px;
+	border-style: solid; 
+}
+
+H3 > span
+{
+	color:rgb(0,0,128);
+}
+
 #PlayerPanel
 {
 	position:fixed;
@@ -58,7 +73,15 @@ H2
 #titles
 {
 	list-style-type: none;
+	padding-left: 20px;
 }
+
+#groups
+{
+	list-style-type: none;
+	padding-left: 20px;
+}
+
 .texts
 {
 	width:100%;
@@ -94,6 +117,10 @@ a.btn {
     filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#ffffff,endColorstr=#cccccc);
     -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#ffffff,endColorstr=#cccccc)";
     *display:block;
+	-moz-user-select: -moz-none;
+    -khtml-user-select: none;
+    -webkit-user-select: none;
+    user-select: none;
 }
 
 a.btn .btnspan {
@@ -106,6 +133,7 @@ a.btn .btnspan {
     background-image: -webkit-gradient(linear, left top, left bottom, from(#fff), to(#ccc));
     filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#ffffff,endColorstr=#cccccc);
     -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#ffffff,endColorstr=#cccccc)";
+
 }
 a.btn:hover {
     color:#35c;

@@ -16,16 +16,16 @@
     </define>
     <define append="true">
       <name>CONFIG::timeStamp</name>
-      <value>'25-10-11'</value>
+      <value>'02-11-11'</value>
     </define>
     <verbose-stacktraces>true</verbose-stacktraces>
     <source-path append="true">
-      <path-element>C:\Users\home\Desktop\Allow\Work\SubsBrowser_\AI-ClassSubsGetter(AS3)\src</path-element>
+      <path-element>C:\Users\home\Desktop\Allow\Work\SubsBrowser\AI-ClassSubsGetter(AS3)\src</path-element>
       <path-element>C:\Program Files (x86)\FlashDevelop\Library\AS3\classes</path-element>
     </source-path>
   </compiler>
   <file-specs>
-    <path-element>C:\Users\home\Desktop\Allow\Work\SubsBrowser_\AI-ClassSubsGetter(AS3)\src\Main.as</path-element>
+    <path-element>C:\Users\home\Desktop\Allow\Work\SubsBrowser\AI-ClassSubsGetter(AS3)\src\Main.as</path-element>
   </file-specs>
   <default-background-color>#FFFFFF</default-background-color>
   <default-frame-rate>30</default-frame-rate>

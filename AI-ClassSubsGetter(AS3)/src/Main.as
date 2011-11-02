@@ -162,8 +162,19 @@ package
 					lecture += 100;
 				}
 				
+				//splitting string by , and space
+				var parts:Array = title.split(",")[0].split(" ");
+				
+				//getting group name like Unit 1
+				var groupName:String = parts[0] + " " + parts[1];
+				
+				//splitting a new to remove group name from titles
+				parts = title.split(" ");
+				parts.splice(0, 2);
+				title = parts.join(" ");
+				//echo(group);
 				//adding associative object to array of videos for soring later
-				videos.push({title:title,id:id,unit:unit,lecture:lecture});
+				videos.push({title:title,id:id,unit:unit,lecture:lecture,group:groupName});
 
 			}
 			
@@ -189,22 +200,43 @@ package
 				videos.push({title:"Homework 1 Search Network",id:"IQhUlwJaBqc",	unit:2,lecture:40});
 				videos.push({title:"Homework 1 A* Search",id:"V4h2H0jpGsg",			unit:2,lecture:41});
 				*/
-				videos.push({title:"Homework 2 Bayes Rule",					id:"_fJTJNK9ejY",	unit:4,lecture:11});
-				videos.push({title:"Homework 2 Simple Bayes Net",			id:"f6mq9rTj-Po",	unit:4,lecture:12});
-				videos.push({title:"Homework 2 Simple Bayes Net 2 ",		id:"P6WEObhmL_o",	unit:4,lecture:13});
-				videos.push({title:"Homework 2 Conditional Independence ",	id:"pP7U6KIO9yE",	unit:4,lecture:14});
-				videos.push( { title:"Homework 2 Conditional Indepedence 2 ",	id:"LMKW60DmJtc",	unit:4, lecture:15 } );
-				videos.push( { title:"Homework 2 Parameter Count ",			id:"8npZMwT0Sac",	unit:4, lecture:16 } );
+				videos.push({title:"Bayes Rule",					id:"_fJTJNK9ejY",	unit:4,lecture:11,		group:"Homework 2"});
+				videos.push({title:"Simple Bayes Net",				id:"f6mq9rTj-Po",	unit:4,lecture:12,		group:"Homework 2"});
+				videos.push({title:"Simple Bayes Net 2 ",			id:"P6WEObhmL_o",	unit:4,lecture:13,		group:"Homework 2"});
+				videos.push({title:"Conditional Independence ",		id:"pP7U6KIO9yE",	unit:4,lecture:14,		group:"Homework 2"});
+				videos.push( { title:"Conditional Indepedence 2 ",	id:"LMKW60DmJtc",	unit:4,lecture:15,		group:"Homework 2" } );
+				videos.push( { title:"Parameter Count ",			id:"8npZMwT0Sac",	unit:4,lecture:16,		group:"Homework 2" } );
 				
-				videos.push( { title:"Homework 3 Naive Bayes",			id:"rGWjGzcWm_Y",	unit:6, lecture:101 } );
+				/*videos.push( { title:"Homework 3 Naive Bayes",			id:"rGWjGzcWm_Y",	unit:6, lecture:101 } );
 				videos.push( { title:"Homework 3 Naive Bayes 2",			id:"YUhCs9cdoNQ",	unit:6, lecture:102 } );
-				videos.push( { title:"Homework 3 Maximum Likelihood",			id:"OtnU31P68bQ",	unit:6, lecture:103 } );
-				videos.push( { title:"Homework 3 Linear Regression",			id:"KcpbUw86hXg",	unit:6, lecture:104 } );
-				videos.push( { title:"Homework 3 Linear Regression 2",			id:"FcIEuDUzo1M",	unit:6, lecture:105 } );
-				videos.push( { title:"Homework 3 K Nearest Neighbors",			id:"RM3FfIYoOy8",	unit:6, lecture:106 } );
-				videos.push( { title:"Homework 3 K Nearest Neighbors 2",			id:"qXR_IIL-VZY",	unit:6, lecture:107 } );
-				videos.push( { title:"Homework 3 Perceptron ",			id:"zpLDF6HrW_w",	unit:6, lecture:108 } );
+				videos.push( { title:"Homework 3 Maximum Likelihood",		id:"OtnU31P68bQ",	unit:6, lecture:103 } );
+				videos.push( { title:"Homework 3 Linear Regression",		id:"KcpbUw86hXg",	unit:6, lecture:104 } );
+				videos.push( { title:"Homework 3 Linear Regression 2",		id:"FcIEuDUzo1M",	unit:6, lecture:105 } );
+				videos.push( { title:"Homework 3 K Nearest Neighbors",		id:"RM3FfIYoOy8",	unit:6, lecture:106 } );
+				videos.push( { title:"Homework 3 K Nearest Neighbors 2",	id:"qXR_IIL-VZY",	unit:6, lecture:107 } );
+				videos.push( { title:"Homework 3 Perceptron ",				id:"zpLDF6HrW_w",	unit:6, lecture:108 } );*/
 				
+				/*videos.push( { title:"Naive Bayes Answer",				id:"evtCdmjcZ4I",	unit:6, lecture:101,		group:"Homework 3" } );
+				videos.push( { title:"Naive Bayes 2 Answer",			id:"LRQKhmXpDLI",	unit:6, lecture:102,		group:"Homework 3" } );
+				videos.push( { title:"Maximum Likelihood Answer",		id:"3lA9jrqw7_4",	unit:6, lecture:103,		group:"Homework 3" } );
+				videos.push( { title:"Linear Regression Answer",		id:"yTYQg1XiBEQ",	unit:6, lecture:104,		group:"Homework 3" } );
+				videos.push( { title:"Linear Regression 2 Answer",		id:"ynxLGEE_Bgo",	unit:6, lecture:105,		group:"Homework 3" } );
+				videos.push( { title:"K Nearest Neighbors Answer",		id:"01qBi27m3Ss",	unit:6, lecture:106,		group:"Homework 3" } );
+				videos.push( { title:"K Nearest Neighbors 2 Answer",	id:"IjzpuYn7Szc",	unit:6, lecture:107,		group:"Homework 3" } );
+				videos.push( { title:"Perceptron Answer",				id:"P88qJlIRnwI",	unit:6, lecture:108,		group:"Homework 3" } ); */
+				
+				
+				
+				videos.push( { title:"1. Logic ",				id:"WP_97aspqrc",		unit:8, lecture:101,		group:"Homework 4" } );
+				videos.push( { title:"2. More Logic",			id:"P_eu1YFp9Z8",		unit:8, lecture:102,		group:"Homework 4" } ); 
+				videos.push( { title:"3. Vacuum World ",		id:"wsfXrIhDhJ0",		unit:8, lecture:103,		group:"Homework 4" } ); 
+				videos.push( { title:"4. More Vacuum World ",	id:"2H4NJg8Iiaw",		unit:8, lecture:104,		group:"Homework 4" } );
+				videos.push( { title:"5. More Vacuum World ",	id:"i5XMOLw6CGE",		unit:8, lecture:105,		group:"Homework 4" } );
+				videos.push( { title:"6. More Vacuum World ",	id:"x93ewPQhIQc",		unit:8, lecture:106,		group:"Homework 4" } );
+				videos.push( { title:"7. More Vacuum World ",	id:"RW-l7JWDtYQ",		unit:8, lecture:107,		group:"Homework 4" } );
+				videos.push( { title:"8. Monkey and Bananas ",	id:"rCGAgc9smZg",		unit:8, lecture:108,		group:"Homework 4" } );
+				videos.push( { title:"9. Situation Calculus ",	id:"eeDwEYxWCTA",		unit:8, lecture:109,		group:"Homework 4" } );
+
 				
 				/*
 				 * Here we sort resulting video list
@@ -216,13 +248,36 @@ package
 				 */
 				videos.sortOn(["unit", "lecture", "title"], [Array.NUMERIC, Array.NUMERIC, Array.CASEINSENSITIVE]);
 				
+				//dictionary to track what groups were already encoutered
+				var groups:Object = { };
+				//group xml object
+				var group:XML;
+				
 				//Outputing resulting sorted titles + populating our resulting XML
 				echo("Sorted lecture list:");
 				for each(var video:Object in videos)
 				{
-					echo(video.title);
-					videosXML.appendChild(<video title={video.title} id={video.id}/>);
+					//if we already have a group just raise the count
+					if (groups.hasOwnProperty(video.group))
+						groups[video.group]++;
+					else
+					{
+						//if it is a new group, create new counter and new group xml object to which to append vidoes
+						groups[video.group] = 1;
+						group = <group title={video.group}/>;
+						videosXML.appendChild(group);
+						//trace(group);
+					}
+					//echo(video.title);
+					group.appendChild(<video title={video.title} id={video.id}/>);
 				}
+				
+				//when all objects are added to groups add video count property to groups
+				for (groupName in groups)
+				{
+					videosXML.group.(@title == groupName)[0].@count  = groups[groupName];
+				}
+				//echo(videosXML);
 				echo("Got video list, starting to retrive captions");
 				//Starting to request subtitles
 				getSubs();
@@ -238,7 +293,14 @@ package
 			var loader:URLLoader = new URLLoader();
 			loader.addEventListener(Event.COMPLETE,subsComplete);
 			var v:String = videos[currentVideo].id;
-			loader.load(new URLRequest("http://video.google.com/timedtext?lang=en&name=English via dotsub&v="+v));
+			loader.load(new URLRequest("http://video.google.com/timedtext?lang=en&name=English via dotsub&v=" + v));
+			loader.addEventListener(IOErrorEvent.IO_ERROR, ioError);
+		}
+		
+		private function ioError(e:IOErrorEvent):void
+		{
+			trace("io error:" + e.text);
+			getSubs();
 		}
 		
 		/*
@@ -251,15 +313,29 @@ package
 		private function subsComplete(e:Event):void
 		{
 			var data:String = e.target.data;
+			var empty:Boolean = false;
 			if (data.length == 0)
 			{
 				data = "<transcript><text start=\"0\" dur=\"3\">No subtitles...</text></transcript>"
+				empty = true;
 			}
 			var xml:XML = XML(data);
-			videosXML.video[currentVideo].appendChild(xml);
+			videosXML.group.video[currentVideo].appendChild(xml);
 			var title:String = videos[currentVideo].title;
-			currentVideo++;
 			
+			if (empty)
+			{
+				videosXML.group.video[currentVideo].@length = "?";
+			}
+			else
+			{
+				var texts:XMLList = xml.text;
+				var lastCaption:XML = texts[texts.length()-1];
+				videosXML.group.video[currentVideo].@length = Number(lastCaption.@start) + Number(lastCaption.@dur);
+			}
+
+			
+			currentVideo++;
 			//if it is not the last video, request next one
 			if(currentVideo!=videos.length)
 			{

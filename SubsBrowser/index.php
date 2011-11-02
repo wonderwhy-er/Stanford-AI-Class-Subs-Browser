@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 /**
  * 
  * Copyright (C) 2011 by Eduard Ruzga
@@ -27,6 +27,16 @@
  * It was made to allow reading captions for their lectures along with the video
  * To be able to search trough captions and jump to exact moment in video where something is dicussed
  */
+
+$f1 = filemtime("index.php");
+$f2 = filemtime("ai-class.xml");
+$lastTime = $f1>$f2?$f1:$f2;
+header("Last-Modified: ".gmdate("D, d M Y H:i:s", $lastTime)." GMT");
+if (@strtotime($_SERVER['HTTP_IF_MODIFIED_SINCE']) == $lastTime)
+{
+	header("HTTP/1.1 304 Not Modified");
+    exit; 
+}
 
   // function to format time, borrowed from php.net and modified for my needs a little
   function sec2hms ($sec, $padHours = false) 
@@ -82,6 +92,11 @@
     You need Flash player 8+ and JavaScript enabled to view this video.
 	</div>
 	<script type="text/javascript">
+	window.onerror=function(){
+		logError("global error handler");
+		return true;
+	}
+	
 	
     var params = { allowScriptAccess: "always" };
     var atts = { id: "player" };
@@ -96,15 +111,15 @@
 	function expandClick(e)
 	{
 		var button  = $("#"+e.currentTarget.id);	
-		var sectionText = $("#"+e.currentTarget.parentNode.id+" .texts");
+		var sectionText = $("#"+e.currentTarget.parentNode.id+" > .texts");
 		button.toggleClass("plus").toggleClass("minus");
 		if(button.hasClass("plus"))
 		{
-			sectionText.slideUp(400);
+			sectionText.hide();
 		}
 		else
 		{
-			sectionText.slideDown(400);
+			sectionText.show();
 		}
 	}
 	
@@ -114,29 +129,34 @@
 	 * This function is called when YouTube player loaded and is ready to get commands from JS
 	 */
 	?>	
+	var ytplayer = null;
 	function onYouTubePlayerReady(playerId) {
-		
-		if (playerId && playerId != 'undefined') {
-			console.log('onYouTubePlayerReady:'+playerId);
-			
-			ytplayer = document.getElementById(playerId);
-			
-		}
-		else
+	
+		try
 		{
-			logError("PlayerID not returned");
-		}
-		
-		if(!ytplayer)
-		{
-			logError("Player not initialised");
-		}
-		else
-		{
-			if(!ytplayer.loadVideoById)
-			{
-				logError("Player function not set");
+			if (playerId && playerId != 'undefined') {
+				ytplayer = document.getElementById(playerId);
 			}
+			else
+			{
+				logError("PlayerID not returned");
+			}
+			
+			if(!ytplayer)
+			{
+				logError("Player not initialised");
+			}
+			else
+			{
+				if(!ytplayer.loadVideoById)
+				{
+					logError("Player function not set");
+				}
+			}
+		}
+		catch(err)
+		{
+			logError("textClick:"+err);
 		}
     }
 	
@@ -148,8 +168,7 @@
 	?>	
 	function logError(txt)
 	{
-		console.log("Error:"+txt);
-		alert(txt);
+		//alert(txt);
 		if(window.XMLHttpRequest){
 			obj = new XMLHttpRequest();
 		} else if(window.ActiveXObject) {
@@ -169,21 +188,40 @@
 	<?php
 	/*
 	 *  That's where we load XML files with videos and captions and output it as list of tables
-	 *	Information about video to play and where to play it is added in to button id field, a hack but I don't know how better to do it
+	 *	Information about video to play and where to play it is added in to a button id field, a hack but I don't know how better to do it
+	 *	Also videos are grouped by unit or homework and info about viodes length is take from last caption, if there is no caption it is left as unknown ??:??
 	 */	
 		if (file_exists('ai-class.xml')) {
 			$xml = simplexml_load_file('ai-class.xml');
 			echo "<p id='lastupdate'>Last update:".$xml['date']."</p>";
-			echo '<ul id="titles">';
-			$id = 0;
-			foreach ($xml->video as $video) {
-				echo '<li class="title" id="section'.$id.'"><a id="expand'.$id.'" class="expandbtn plus"></a><h2>'.$video['title'].'</h2>';
-				echo '<table class="texts hidden">';
-				foreach ($video->transcript->text as $text) {
-					echo '<tr class="text"><td><span class="substext">'.$text.'</span></td><td><a class="btn play" id="'.$video['id'].'|'.$text['start'].'"><span class="btnspan">&#9654; '.sec2hms($text['start']).'</span></a></td></tr>';
+			
+			$videoID = 0;
+			$groupID = 0;
+			echo '<ul id="groups">';
+			foreach($xml->group as $group)
+			{
+				$videoCount = count($group->video);
+				echo '<li class="group" id="group'.$groupID.'"><a id="groupExpand'.$groupID.'" class="expandbtn plus"></a><h2>'.'('.$videoCount.') '.$group['title'].'</h2>';
+				echo '<div class="texts hidden">';
+				echo '<ul id="titles">';
+				foreach ($group->video as $video) {
+					
+					$length = $video['length'];
+					if($length=="?")
+						$length = "<span>((??:??)) </span>";
+					else
+						$length = "<span>(".sec2hms($length).") </span>";
+					
+					echo '<li class="title" id="section'.$videoID.'"><a id="videoExpand'.$videoID.'" class="expandbtn plus"></a><h3>'.$length.$video['title'].'</h3>';
+					echo '<table class="texts hidden">';
+					foreach ($video->transcript->text as $text) {
+						echo '<tr class="text"><td><span class="substext">'.$text.'</span></td><td><a class="btn play" id="'.$video['id'].'|'.$text['start'].'"><span class="btnspan" unselectable="on">&#9654; '.sec2hms($text['start']).'</span></a></td></tr>';
+					}
+					echo '</table></li>';
+					$videoID++;
 				}
-				echo '</table></li>';
-				$id++;
+				echo "</ul>\n";
+				$groupID++;
 			}
 			echo "</ul>\n";
 		} else {
@@ -199,18 +237,17 @@
 		 */	
 		function textClick(e)
 		{
-			var elementID =  e.currentTarget.id;
-			var parts = elementID.split('|');
-			var videoID = parts[0];
-			var start = parts[1];
-			
 			try
 			{
+				var elementID =  e.currentTarget.id;
+				var parts = elementID.split('|');
+				var videoID = parts[0];
+				var start = parts[1];
 				ytplayer.loadVideoById(videoID,start);
 			}
 			catch(err)
 			{
-				logError(err);
+				logError("textClick:"+err);
 			}
 		}
 		$('.play').click(textClick);
