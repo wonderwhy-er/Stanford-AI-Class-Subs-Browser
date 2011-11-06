@@ -75,7 +75,7 @@ try {
 	
  	echo "start";
 	$id = "cx3lV07w-XE";
-	$url = "http://video.google.com/timedtext?lang=en&name=English via dotsub&v=".$id;
+	$url = "http://video.google.com/timedtext?lang=en&name=English%20via%20dotsub&v=".$id;
 	echo "<br/>subs url: <a href='".$url."'>".$url."</a>";
 	echo "<br/>".curl_spoof($url);
 
