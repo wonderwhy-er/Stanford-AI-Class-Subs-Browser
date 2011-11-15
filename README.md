@@ -33,6 +33,7 @@ You can see it in action here: http://www.wonderwhy-er.com/ai-class/
 
 AI-ClassSubsGetter(AS3)
 -----------------------
+Update: Now is depricated, will not be updated, use PHP getter instead
 
 Its an Flash/AIR application that downloads and outputs as XML all videos, titles, and captions.
 It will show progress and in the end will open xml file saving dialog.
@@ -46,13 +47,23 @@ Issues:
 
 AI-ClassSubsGetter(PHP)
 -----------------------
+Update:
+Thanks to https://github.com/mudelta who showed what was wrong with getting subs.
 
-This was a side project. Honestly I hoped to make a PHP script that downloads all needed data and makes an XML file for the page.
-Sadly getting captions from google fails. It returns error 400: malformed or illegal request. Even though doing same request trough browser or Flash returns results just fine.
-Sadly failed to figure out whats' wrong and am not intending to find it out anymore.
+Now this script is used to retrive videos and subtitles and prepare xml file.
+I did not put it publiclly anywhere as it is a heavy script and I don't want dozen of visitors poking it
 
-You can see video list scrapping script in action here(works fine): http://www.wonderwhy-er.com/ai-class/getSortedVideoList.php
+Works like this:
+- Visit admin.php
+- Click Update
+- getSubs.php will be called
+- getSubs.php runs pretty long operation of getting and parsing viodes and subtitles
+- getSubs.php output progress in to subslog.txt
+- admin.php page after clicking update will start polling trough AJAX subslog.txt and showing progress
+- when finished polling will stop and result ai-class.xml will be saved in same folder
 
-And here is captions scrapping script(does not work, you can click on the link and see that browser gets it just fine): http://www.wonderwhy-er.com/ai-class/getSubs.php
+Issues:
+- Seems to not be very relaible, may under some server settings or circumstances fail to finish
+- There is no mechanism right now for checking if script is runing, so its possible to call it few times and few will run in parallel, not good, will need to fix it later
 
-Will be very thankful to anyone who will figure out a way of how to retrieve YouTube captions trough PHP so that I could finish this script and use it instead of AIR app.
+
