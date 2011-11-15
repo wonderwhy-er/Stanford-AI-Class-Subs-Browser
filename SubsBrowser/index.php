@@ -76,10 +76,35 @@ if (@strtotime($_SERVER['HTTP_IF_MODIFIED_SINCE']) == $lastTime)
 		<meta name="viewport" content="width=100%; initial-scale=1; maximum-scale=1; minimum-scale=1; user-scalable=no;"/>
 		<link rel="stylesheet" type="text/css" href="Style.css" />
 		<link rel="icon"  type="image/png" href="favicon.ico">
-		<script src="https://www.google.com/jsapi?key=ABQIAAAAmn_0VvpPaGcNmWj-N8m5zBRvR6kMDk4ce0h09wmKFr6gKHrTZxQAf0Vt6M1xsqov8hmnfsGeFKX3yw" type="text/javascript"></script>
+		<script src="jquery-1.7.min.js" type="text/javascript"></script>
+		<script src="swfobject.js" type="text/javascript"></script>
 		<script type="text/javascript">
-			google.load("jquery", "1.6.3");
-			google.load("swfobject", "2.1");
+			<?php
+			/*
+			 * Added function to track JS errors
+			 */
+			?>	
+			function logError(txt)
+			{
+				//alert(txt);
+				if(window.XMLHttpRequest){
+					obj = new XMLHttpRequest();
+				} else if(window.ActiveXObject) {
+					obj = new ActiveXObject("Microsoft.XMLHTTP");
+				} 
+				obj.open("GET", "errorLog.php?error="+txt, true);
+				obj.send(null);
+			}
+			<?php
+			/*
+			 * Global error handler, seems to not work on mobile and have other issues
+			 */
+			?>				
+			window.onerror=function(message, url, lineNumber){
+				if(url && url!="")
+					logError("line: "+lineNumber+" url: "+url+" error: "+message);
+				return true;
+			}
 		</script>
 	 </head>
 	 
@@ -91,93 +116,6 @@ if (@strtotime($_SERVER['HTTP_IF_MODIFIED_SINCE']) == $lastTime)
 	<div id="player">
     You need Flash player 8+ and JavaScript enabled to view this video.
 	</div>
-	<script type="text/javascript">
-	window.onerror=function(){
-		logError("global error handler");
-		return true;
-	}
-	
-	
-    var params = { allowScriptAccess: "always" };
-    var atts = { id: "player" };
-    swfobject.embedSWF("http://www.youtube.com/e/BnIJ7Ba5Sr4?enablejsapi=1&playerapiid=player",
-                     "player", "100%", "100%", "8", null, null, params, atts);
-					   
-	<?php
-	/*
-	 * JS Function for opening and closing lectures using jQuery
-	 */
-	?>
-	function expandClick(e)
-	{
-		var button  = $("#"+e.currentTarget.id);	
-		var sectionText = $("#"+e.currentTarget.parentNode.id+" > .texts");
-		button.toggleClass("plus").toggleClass("minus");
-		if(button.hasClass("plus"))
-		{
-			sectionText.hide();
-		}
-		else
-		{
-			sectionText.show();
-		}
-	}
-	
-	
-	<?php
-	/*
-	 * This function is called when YouTube player loaded and is ready to get commands from JS
-	 */
-	?>	
-	var ytplayer = null;
-	function onYouTubePlayerReady(playerId) {
-	
-		try
-		{
-			if (playerId && playerId != 'undefined') {
-				ytplayer = document.getElementById(playerId);
-			}
-			else
-			{
-				logError("PlayerID not returned");
-			}
-			
-			if(!ytplayer)
-			{
-				logError("Player not initialised");
-			}
-			else
-			{
-				if(!ytplayer.loadVideoById)
-				{
-					logError("Player function not set");
-				}
-			}
-		}
-		catch(err)
-		{
-			logError("textClick:"+err);
-		}
-    }
-	
-	<?php
-	/*
-	 * Added function to track errors with YouTube, so far only problems are with 
-	 * iOS devices where there is no Flash and no YouTube JS API for Flashless videos :(
-	 */
-	?>	
-	function logError(txt)
-	{
-		//alert(txt);
-		if(window.XMLHttpRequest){
-			obj = new XMLHttpRequest();
-		} else if(window.ActiveXObject) {
-			obj = new ActiveXObject("Microsoft.XMLHTTP");
-		} 
-		obj.open("GET", "errorLog.php?error="+txt, true);
-		obj.send(null);
-	}
-	</script>
 	</div>
 	
 	<div id="menu">
@@ -220,7 +158,7 @@ if (@strtotime($_SERVER['HTTP_IF_MODIFIED_SINCE']) == $lastTime)
 					echo '</table></li>';
 					$videoID++;
 				}
-				echo "</ul>\n";
+				echo "</ul></div>\n";
 				$groupID++;
 			}
 			echo "</ul>\n";
@@ -230,6 +168,78 @@ if (@strtotime($_SERVER['HTTP_IF_MODIFIED_SINCE']) == $lastTime)
 	?>
 	
 	<script>
+
+
+    var params = { allowScriptAccess: "always" };
+    var atts = { id: "player" };
+    swfobject.embedSWF("http://www.youtube.com/e/BnIJ7Ba5Sr4?enablejsapi=1&playerapiid=player",
+                     "player", "100%", "100%", "8", null, null, params, atts);
+					   
+	<?php
+	/*
+	 * JS Function for opening and closing lectures using jQuery
+	 */
+	?>
+	function expandClick(e)
+	{
+		try {
+			var button  = $("#"+e.currentTarget.id);	
+			var sectionText = $("#"+e.currentTarget.parentNode.id+" > .texts");
+			button.toggleClass("plus").toggleClass("minus");
+			if(button.hasClass("plus"))
+			{
+				sectionText.hide();
+			}
+			else
+			{
+				sectionText.show();
+			}
+		}
+		catch(err)
+		{
+			logError("expandClick:"+err);
+		}
+	}
+	
+	
+	<?php
+	/*
+	 * This function is called when YouTube player loaded and is ready to get commands from JS
+	 */
+	?>	
+	var ytplayer = null;
+	function onYouTubePlayerReady(playerId) {
+	
+		try
+		{
+			if (playerId && playerId != 'undefined') {
+				ytplayer = document.getElementById(playerId);
+			}
+			else
+			{
+				logError("PlayerID not returned");
+			}
+			
+			if(!ytplayer)
+			{
+				logError("Player not initialised");
+			}
+			else
+			{
+				if(!ytplayer.loadVideoById)
+				{
+					logError("Player function not set");
+				}
+			}
+		}
+		catch(err)
+		{
+			logError("onYouTubePlayerReady:"+err);
+		}
+    }
+	
+	
+	
 		/*
 		 * On clicking play button I retrive its id, from there I get id of video to play and a moment from which to play it
 		 * Then call YouTube/Flash player and pass those paremeters in
@@ -250,19 +260,27 @@ if (@strtotime($_SERVER['HTTP_IF_MODIFIED_SINCE']) == $lastTime)
 				logError("textClick:"+err);
 			}
 		}
-		$('.play').click(textClick);
 		
+		try {
+		
+			$('.play').click(textClick);
+			
 
-		$('.expandbtn').click(expandClick);
-		
-		$('#exall').click(function(){
-			$(".texts").show();
-			$(".expandbtn").removeClass("plus").addClass("minus");
-		});
-		$('#clall').click(function(){
-			$(".texts").hide();
-			$(".expandbtn").removeClass("minus").addClass("plus");
-		});
+			$('.expandbtn').click(expandClick);
+			
+			$('#exall').click(function(){
+				$(".texts").show();
+				$(".expandbtn").removeClass("plus").addClass("minus");
+			});
+			$('#clall').click(function(){
+				$(".texts").hide();
+				$(".expandbtn").removeClass("minus").addClass("plus");
+			});
+		}
+		catch(err)
+		{
+			logError("jQuery event registration:"+err);
+		}
 	</script>
 	</div>
 	

@@ -138,6 +138,11 @@ package
 			{
 				// youtube video title
 				var title:String = entry.ns::title.children();
+				
+				
+				if (title.substr(title.length - 3) == " ad")
+					continue;
+				
 				// youtube video link
 				var id:String = entry.ns::link.(@rel=="alternate").@href;
 				
@@ -227,16 +232,28 @@ package
 				
 				
 				
-				videos.push( { title:"1. Logic ",				id:"WP_97aspqrc",		unit:8, lecture:101,		group:"Homework 4" } );
-				videos.push( { title:"2. More Logic",			id:"P_eu1YFp9Z8",		unit:8, lecture:102,		group:"Homework 4" } ); 
-				videos.push( { title:"3. Vacuum World ",		id:"wsfXrIhDhJ0",		unit:8, lecture:103,		group:"Homework 4" } ); 
-				videos.push( { title:"4. More Vacuum World ",	id:"2H4NJg8Iiaw",		unit:8, lecture:104,		group:"Homework 4" } );
-				videos.push( { title:"5. More Vacuum World ",	id:"i5XMOLw6CGE",		unit:8, lecture:105,		group:"Homework 4" } );
-				videos.push( { title:"6. More Vacuum World ",	id:"x93ewPQhIQc",		unit:8, lecture:106,		group:"Homework 4" } );
-				videos.push( { title:"7. More Vacuum World ",	id:"RW-l7JWDtYQ",		unit:8, lecture:107,		group:"Homework 4" } );
-				videos.push( { title:"8. Monkey and Bananas ",	id:"rCGAgc9smZg",		unit:8, lecture:108,		group:"Homework 4" } );
-				videos.push( { title:"9. Situation Calculus ",	id:"eeDwEYxWCTA",		unit:8, lecture:109,		group:"Homework 4" } );
+				videos.push( { title:"1. Logic ",						id:"WP_97aspqrc",		unit:8, lecture:101,		group:"Homework 4" } );
+				videos.push( { title:"1. Logic Answer",					id:"XFR1231H0M0",		unit:8, lecture:101,		group:"Homework 4" } );
+				videos.push( { title:"2. More Logic",					id:"P_eu1YFp9Z8",		unit:8, lecture:102,		group:"Homework 4" } ); 
+				videos.push( { title:"2. More Logic Answer",			id:"SiZtjEaLiE8",		unit:8, lecture:102,		group:"Homework 4" } ); 
+				videos.push( { title:"3. Vacuum World ",				id:"wsfXrIhDhJ0",		unit:8, lecture:103,		group:"Homework 4" } ); 
+				videos.push( { title:"3. Vacuum World Answer",			id:"FhowsCKPJCE",		unit:8, lecture:103,		group:"Homework 4" } ); 
+				videos.push( { title:"4. More Vacuum World ",			id:"2H4NJg8Iiaw",		unit:8, lecture:104,		group:"Homework 4" } );
+				videos.push( { title:"4. More Vacuum World Answer",		id:"Z6QNCiMIR1I",		unit:8, lecture:104,		group:"Homework 4" } );
+				videos.push( { title:"5. More Vacuum World ",			id:"i5XMOLw6CGE",		unit:8, lecture:105,		group:"Homework 4" } );
+				videos.push( { title:"5. More Vacuum World Answer",		id:"QHPs9m5qE9A",		unit:8, lecture:105,		group:"Homework 4" } );
+				videos.push( { title:"6. More Vacuum World ",			id:"x93ewPQhIQc",		unit:8, lecture:106,		group:"Homework 4" } );
+				videos.push( { title:"6. More Vacuum World Answer",		id:"984YVReF6Do",		unit:8, lecture:106,		group:"Homework 4" } );
+				videos.push( { title:"7. More Vacuum World ",			id:"RW-l7JWDtYQ",		unit:8, lecture:107,		group:"Homework 4" } );
+				videos.push( { title:"7. More Vacuum World Answer",		id:"mPk9fV8RZ3g",		unit:8, lecture:107,		group:"Homework 4" } );
+				videos.push( { title:"8. Monkey and Bananas ",			id:"rCGAgc9smZg",		unit:8, lecture:108,		group:"Homework 4" } );
+				videos.push( { title:"8. Monkey and Bananas Answer",	id:"rZtBR-d0H5Y",		unit:8, lecture:108,		group:"Homework 4" } );
+				videos.push( { title:"9. Situation Calculus ",			id:"eeDwEYxWCTA",		unit:8, lecture:109,		group:"Homework 4" } );
+				videos.push( { title:"9. Situation Calculus Answer",	id:"2oZexvl5fVU",		unit:8, lecture:109,		group:"Homework 4" } );
 
+				videos.push( { title:"1. Q Learning",					id:"Ybifm6j2SP4",		unit:10, lecture:109,		group:"Homework 5" } );
+				videos.push( { title:"2. Function Generalization",		id:"tpH7hp_pLqk",		unit:10, lecture:109,		group:"Homework 5" } );
+				videos.push( { title:"3. Passive RL Agent",				id:"212NkM6UCBc",		unit:10, lecture:109,		group:"Homework 5" } );
 				
 				/*
 				 * Here we sort resulting video list
