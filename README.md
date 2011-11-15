@@ -1,4 +1,4 @@
-README
+﻿README
 ======
 
 This is a small project for Stanford AI-Class www.ai-class.com
